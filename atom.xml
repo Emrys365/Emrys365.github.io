@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://emrys365.github.io/</id>
     <title>Speech 101</title>
-    <updated>2019-12-25T13:40:15.009Z</updated>
+    <updated>2019-12-25T15:40:30.920Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://emrys365.github.io/"/>
     <link rel="self" href="https://emrys365.github.io//atom.xml"/>
@@ -10,6 +10,271 @@
     <logo>https://emrys365.github.io//images/avatar.png</logo>
     <icon>https://emrys365.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, Speech 101</rights>
+    <entry>
+        <title type="html"><![CDATA[ASRU历年最佳论文]]></title>
+        <id>https://emrys365.github.io//post/asru-li-nian-zui-jia-lun-wen</id>
+        <link href="https://emrys365.github.io//post/asru-li-nian-zui-jia-lun-wen">
+        </link>
+        <updated>2019-12-25T15:34:55.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="asru">ASRU</h1>
+<ul>
+<li>
+<p>2019 年<br>
+时间：2019年12月14日~18日<br>
+地点：新加坡 圣淘沙<br>
+共收到 299 篇投稿，最终接收 144 篇论文</p>
+<table>
+<thead>
+<tr>
+<th><div style="width:35px">序号</div></th>
+<th>最佳论文（提名）</th>
+<th>作者</th>
+<th><div style="width:120px">获奖情况</div></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Incremental Lattice Determinization For WFST Decoders</td>
+<td>Zhehuai Chen, Mahsa Yarmohammadi, Hainan Xu, Hang Lv, Lei Xie, Daniel Povey, Sanjeev Khudanpur</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Integrating Source-Channel and Attention-Based Sequence-to-Sequence Models for Speech Recognition</td>
+<td>Qiujia Li, Chao Zhang, and Philip C. Woodland</td>
+<td>最佳学生论文</td>
+</tr>
+<tr>
+<td>3</td>
+<td>End-to-End Neural Speaker Diarization with Self-Attention</td>
+<td>Yusuke Fujita, Naoyuki Kanda, Shota Horiguchi, Yawen Xue, Kenji Nagamatsu, Shinji Watanabe</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Orthogonality Constrained Multi-Head Attention for Keyword Spotting</td>
+<td>Mingu Lee, Jinkyu Lee, Hye Jin Jang, Byeonggeun Kim, Wonil Chang, Kyuwoong Hwang</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>MIMO-Speech: End-to-End Multi-Channel Multi-Speaker Speech Recognition</td>
+<td>Xuankai Chang, Wangyou Zhang, Yanmin Qian, Jonathan Le Roux, Shinji Watanabe</td>
+<td>最佳论文</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Speaker and Language Aware Training for End-to-End ASR</td>
+<td>Shubham Bansal, Karan Malhotra, Sriram Ganapathy</td>
+<td></td>
+</tr>
+<tr>
+<td>7</td>
+<td>CNN with Phonetic Attention for Text-Independent Speaker Verification</td>
+<td>Tianyan Zhou, Yong Zhao, Jinyu Li, Yifan Gong, Jian Wu</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>2017 年<br>
+时间：2017年12月16日~20日<br>
+地点：日本 冲绳县<br>
+共收到 ? 篇投稿，最终接收 106 篇论文</p>
+<table>
+<thead>
+<tr>
+<th><div style="width:35px">序号</div></th>
+<th>最佳论文（提名）</th>
+<th>作者</th>
+<th><div style="width:120px">获奖情况</div></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Streaming Small-Footprint Keyword Spotting Using Sequence-to-Sequence Models</td>
+<td>Yanzhang He, Rohit Prabhavalkar, Kanishka Rao, Wei Li, Anton Bakhtin, Ian McGraw</td>
+<td>最佳论文</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Hierarchical Recurrent Neural Network for Story Segmentation Using Fusion of Lexical and Acoustic Features</td>
+<td>Emiru Tsunoo, Ondrej Klejch, Peter Bell, Steve Renals</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>An Embedded Segmental K-Means Model for Unsupervised Segmentation and Clustering of Speech</td>
+<td>Herman Kamper, Karen Livescu, Sharon Goldwater</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Composite Embedding Systems for Zerospeech2017 Track1</td>
+<td>Hayato Shibata, Taku Kato, Takahiro Shinozaki, Shinji Watanabe</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Exploring Architectures, Data and Units for Streaming End-to-End Speech Recognition with RNN-Transducer</td>
+<td>Kanishka Rao, Hasim Sak, Rohit Prabhavalkar</td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td>Exploring Neural Transducers for End-to-End Speech Recognition</td>
+<td>Eric Battenberg, Jitong Chen, Rewon Child, Adam Coates, Yashesh Gaur, Yi Li, Hairong Liu, Sanjeev Satheesh, Anuroop Sriram, Zhenyao Zhu</td>
+<td></td>
+</tr>
+<tr>
+<td>7</td>
+<td>Unsupervised Adaptation with Domain Separation Networks for Robust Speech Recognition</td>
+<td>Zhong Meng, Zhuo Chen, Vadim Mazalov, Jinyu Li, Yifan Gong</td>
+<td></td>
+</tr>
+<tr>
+<td>8</td>
+<td>Language Independent End-to-End Architecture for Joint Language Identification and Speech Recognition</td>
+<td>Shinji Watanabe, Takaaki Hori, John Hershey</td>
+<td></td>
+</tr>
+<tr>
+<td>9</td>
+<td>Multi-Level Language Modeling and Decoding for Open Vocabulary End-to-End Speech Recognition</td>
+<td>Takaaki Hori, Shinji Watanabe, John Hershey</td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>Listening While Speaking: Speech Chain by Deep Learning</td>
+<td>Andros Tjandra, Sakriani Sakti, Satoshi Nakamura</td>
+<td>最佳学生论文</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Unsupervised Domain Adaptation for Robust Speech Recognition Via Variational Autoencoder-Based Data Augmentation</td>
+<td>Wei-Ning Hsu, Yu Zhang, James Glass</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>2015 年</p>
+<p>时间：2015年12月13日~17日<br>
+地点：美国 斯科茨代尔<br>
+共收到 224 篇投稿，最终接收 107 篇论文</p>
+<table>
+<thead>
+<tr>
+<th><div style="width:35px">序号</div></th>
+<th>最佳论文（提名）</th>
+<th>作者</th>
+<th><div style="width:120px">获奖情况</div></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Hybrid DNN-Latent Structured SVM Acoustic models for Continuous Speech Recognition</td>
+<td>Suman Ravuri</td>
+<td>最佳论文</td>
+</tr>
+<tr>
+<td>2</td>
+<td></td>
+<td></td>
+<td>最佳学生论文</td>
+</tr>
+<tr>
+<td>3</td>
+<td>EESEN: End-to-end speech recognition using deep RNN models and WFST-based decoding</td>
+<td>Yajie Miao, Mohammad Gowayyed, Florian Metze</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Policy Committee for Adaptation in Multi-Domain Spoken Dialogue Systems</td>
+<td>M. Gašić, N. Mrkšić, Pei-hao Su, David Vandyke, Tsung-Hsien Wen, Steve Young</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>(待补充)</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>2013 年</p>
+<p>时间：2013年12月8日~13日<br>
+地点：捷克 奥洛穆茨</p>
+<table>
+<thead>
+<tr>
+<th><div style="width:35px">序号</div></th>
+<th>最佳论文（提名）</th>
+<th>作者</th>
+<th><div style="width:120px">获奖情况</div></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Unsupervised Induction and Filling of Semantic Slots for Spoken Dialogue Systems using Frame-Semantic Parsing</td>
+<td>Yun-Nung Chen, William Yang Wang, Alexander I. Rudnicky</td>
+<td>最佳学生论文</td>
+</tr>
+<tr>
+<td>2</td>
+<td>A Hierarchical System for Word Discovery Exploiting Dtw-Based Initialization</td>
+<td>Oliver Walter, Timo Korthals, Reinhold Haeb-Umbach, Bhiksha Raj</td>
+<td>最佳学生论文</td>
+</tr>
+<tr>
+<td>3</td>
+<td>The Tao of ATWV: Probing the Mysteries of Keyword Search Performance</td>
+<td>Steven Wegmann, Arlo Faria, Adam Janin, Korbinian Riedhammer, Nelson Morgan</td>
+<td>最佳论文</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Convolutional Neural Network Based Triangular CRF for Joint Intent Detection and Slot Filling</td>
+<td>Puyang Xu, Ruhi Sarikaya</td>
+<td>最佳论文</td>
+</tr>
+<tr>
+<td>5</td>
+<td>(待补充)</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>2011 年</p>
+<p>时间：2011年12月11日~15日<br>
+地点：美国 夏威夷岛</p>
+</li>
+<li>
+<p>2009 年</p>
+<p>时间：2009年12月13日~17日<br>
+地点：意大利 梅拉诺</p>
+</li>
+<li>
+<p>2007 年</p>
+<p>时间：2007年12月9日~13日<br>
+地点：日本 京都</p>
+</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[InterSpeech历年最佳论文]]></title>
         <id>https://emrys365.github.io//post/interspeech-li-nian-zui-jia-lun-wen</id>
