@@ -2,9 +2,9 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>关于 | Gridea</title>
-<meta name="description" content="温故而知新" />
-<link rel="shortcut icon" href="https://emrys365.github.io//favicon.ico?v=1577260609255">
+<title>关于 | Speech 101</title>
+<meta name="description" content="记录、学习、分享语音相关知识" />
+<link rel="shortcut icon" href="https://emrys365.github.io//favicon.ico?v=1577261435784">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://emrys365.github.io//styles/main.css">
@@ -20,13 +20,13 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://emrys365.github.io/">
-  <img class="avatar" src="https://emrys365.github.io//images/avatar.png?v=1577260609255" alt="">
+  <img class="avatar" src="https://emrys365.github.io//images/avatar.png?v=1577261435784" alt="">
   </a>
   <h1 class="site-title">
-    Gridea
+    Speech 101
   </h1>
   <p class="site-description">
-    温故而知新
+    记录、学习、分享语音相关知识
   </p>
   <div class="menu-container">
     
@@ -57,6 +57,10 @@
   </div>
   <div class="social-container">
     
+      
+        <a href="https://github.com/Emrys365" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
       
     
       
@@ -115,6 +119,32 @@
 
         
 
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '28cd080097329ea0c788',
+    clientSecret: '8d7414a55b033e9be3c55ec36b22ad9a21300d64',
+    repo: 'Emrys365.github.io',
+    owner: 'Emrys365',
+    admin: ['Emrys365'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
         
 
         <div class="site-footer">
