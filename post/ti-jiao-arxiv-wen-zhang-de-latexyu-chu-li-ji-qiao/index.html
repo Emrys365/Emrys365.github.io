@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>提交 arXiv 文章的（LaTeX）预处理技巧 | Speech 101</title>
 <meta name="description" content="记录、学习、分享语音相关知识" />
-<link rel="shortcut icon" href="https://emrys365.github.io//favicon.ico?v=1603771433121">
+<link rel="shortcut icon" href="https://emrys365.github.io//favicon.ico?v=1603987150460">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://emrys365.github.io//styles/main.css">
@@ -29,7 +29,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://emrys365.github.io/">
-  <img class="avatar" src="https://emrys365.github.io//images/avatar.png?v=1603771433121" alt="">
+  <img class="avatar" src="https://emrys365.github.io//images/avatar.png?v=1603987150460" alt="">
   </a>
   <h1 class="site-title">
     Speech 101
@@ -96,6 +96,10 @@
                 2 min read
               </span>
               
+                <a href="https://emrys365.github.io/tag/yGSS2rN9O" class="post-tag">
+                  # LaTeX
+                </a>
+              
             </div>
             
             <div class="post-content-wrapper">
@@ -116,7 +120,11 @@ PS01=&quot;\033[01;35m\$\033[00m&quot;
 echo -e &quot;\n${PS01} mv \033[4mmain.tex\033[0m \033[4mmain.tex.bak\033[0m&quot;
 mv main.tex main.tex.bak
 latexpand --empty-comments main.tex.bak &gt; main.tex
-sed -i '' -e '/^\s*%/d' main.tex
+if [[ $OSTYPE == darwin* ]]; then
+    sed -i '' -e '/^\s*%/d' main.tex
+else
+    sed -i -e '/^\s*%/d' main.tex
+fi
 
 echo -e &quot;\n${PS01} pdflatex \033[4mmain.tex\033[0m&quot;
 pdflatex main.tex

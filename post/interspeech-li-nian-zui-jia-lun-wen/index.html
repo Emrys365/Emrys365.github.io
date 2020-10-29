@@ -1,343 +1,116 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://emrys365.github.io/</id>
-    <title>Speech 101</title>
-    <updated>2020-10-29T15:59:14.714Z</updated>
-    <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://emrys365.github.io/"/>
-    <link rel="self" href="https://emrys365.github.io/atom.xml"/>
-    <subtitle>记录、学习、分享语音相关知识</subtitle>
-    <logo>https://emrys365.github.io/images/avatar.png</logo>
-    <icon>https://emrys365.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, Speech 101</rights>
-    <entry>
-        <title type="html"><![CDATA[提交 arXiv 文章的（LaTeX）预处理技巧]]></title>
-        <id>https://emrys365.github.io/post/ti-jiao-arxiv-wen-zhang-de-latexyu-chu-li-ji-qiao</id>
-        <link href="https://emrys365.github.io/post/ti-jiao-arxiv-wen-zhang-de-latexyu-chu-li-ji-qiao">
-        </link>
-        <updated>2020-10-27T03:57:19.000Z</updated>
-        <content type="html"><![CDATA[<p>提交基于 tex 的文章时，可使用下列 shell 脚本进行处理，快速生成需要提交的文件：</p>
-<blockquote>
-<p>环境依赖：</p>
-<ul>
-<li>latexpand</li>
-<li>pdflatex</li>
-<li>bibtex</li>
-</ul>
-</blockquote>
-<pre><code class="language-shell">#!/bin/bash
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>InterSpeech历年最佳论文 | Speech 101</title>
+<meta name="description" content="记录、学习、分享语音相关知识" />
+<link rel="shortcut icon" href="https://emrys365.github.io//favicon.ico?v=1603987150460">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://emrys365.github.io//styles/main.css">
 
-PS01=&quot;\033[01;35m\$\033[00m&quot;
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
-echo -e &quot;\n${PS01} mv \033[4mmain.tex\033[0m \033[4mmain.tex.bak\033[0m&quot;
-mv main.tex main.tex.bak
-latexpand --empty-comments main.tex.bak &gt; main.tex
-if [[ $OSTYPE == darwin* ]]; then
-    sed -i '' -e '/^\s*%/d' main.tex
-else
-    sed -i -e '/^\s*%/d' main.tex
-fi
 
-echo -e &quot;\n${PS01} pdflatex \033[4mmain.tex\033[0m&quot;
-pdflatex main.tex
-echo -e &quot;\n${PS01} bibtex main&quot;
-if [ -f &quot;main.bbl&quot; ]; then
-    rm main.bbl
-fi
-bibtex main
-echo -e &quot;\n${PS01} pdflatex \033[4mmain.tex\033[0m&quot;
-pdflatex main.tex
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-155032470-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-echo -e &quot;\n${PS01} rm \033[4mmain{.aux,.log,.out}\033[0m&quot;
-for suffix in .aux .blg .log .out; do
-    if [ -f &quot;main${suffix}&quot; ]; then
-        rm main${suffix}
-    fi
-done
-echo -e &quot;#########################################################&quot;
-echo -e &quot;\n(1) Please \033[33mcheck\033[0m and then \033[33mdelete\033[0m the generated \033[4mmain.pdf\033[0m.&quot;
-echo -e &quot;\n(2) You \033[33mmust include\033[0m the following files in the archive:&quot;
-echo -e &quot;  + main.tex\n  + main.bbl (or main.ind)\n  + referenced figures in main.tex\n  + (if applicable) other related tex files\n  + (optional) style file&quot;
-echo -e &quot;\n(3) After removing \033[4mmain.pdf\033[0m, you can run the following&quot;
-echo -e &quot;     command to generate the archive file:\n&quot;
-# Below is an example. Must include all involved .tex files, figure files, style files, and main.bbl.
-echo -e &quot;  zip -r to_arxiv.zip ./{INTERSPEECH2020.sty,acronyms.tex,figs,figs/*,main.bbl,main.tex}
-echo -e &quot;\n#########################################################&quot;
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[ASRU历年最佳论文]]></title>
-        <id>https://emrys365.github.io/post/asru-li-nian-zui-jia-lun-wen</id>
-        <link href="https://emrys365.github.io/post/asru-li-nian-zui-jia-lun-wen">
-        </link>
-        <updated>2019-12-25T15:34:55.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="asru">ASRU</h1>
-<ul>
-<li>
-<p>2019 年<br>
-时间：2019年12月14日~18日<br>
-地点：新加坡 圣淘沙<br>
-共收到 299 篇投稿，最终接收 144 篇论文</p>
-<table>
-<thead>
-<tr>
-<th><div style="width:35px">序号</div></th>
-<th>最佳论文（提名）</th>
-<th>作者</th>
-<th><div style="width:120px">获奖情况</div></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Incremental Lattice Determinization For WFST Decoders</td>
-<td>Zhehuai Chen, Mahsa Yarmohammadi, Hainan Xu, Hang Lv, Lei Xie, Daniel Povey, Sanjeev Khudanpur</td>
-<td></td>
-</tr>
-<tr>
-<td>2</td>
-<td>Integrating Source-Channel and Attention-Based Sequence-to-Sequence Models for Speech Recognition</td>
-<td>Qiujia Li, Chao Zhang, and Philip C. Woodland</td>
-<td>最佳学生论文</td>
-</tr>
-<tr>
-<td>3</td>
-<td>End-to-End Neural Speaker Diarization with Self-Attention</td>
-<td>Yusuke Fujita, Naoyuki Kanda, Shota Horiguchi, Yawen Xue, Kenji Nagamatsu, Shinji Watanabe</td>
-<td></td>
-</tr>
-<tr>
-<td>4</td>
-<td>Orthogonality Constrained Multi-Head Attention for Keyword Spotting</td>
-<td>Mingu Lee, Jinkyu Lee, Hye Jin Jang, Byeonggeun Kim, Wonil Chang, Kyuwoong Hwang</td>
-<td></td>
-</tr>
-<tr>
-<td>5</td>
-<td>MIMO-Speech: End-to-End Multi-Channel Multi-Speaker Speech Recognition</td>
-<td>Xuankai Chang, Wangyou Zhang, Yanmin Qian, Jonathan Le Roux, Shinji Watanabe</td>
-<td>最佳论文</td>
-</tr>
-<tr>
-<td>6</td>
-<td>Speaker and Language Aware Training for End-to-End ASR</td>
-<td>Shubham Bansal, Karan Malhotra, Sriram Ganapathy</td>
-<td></td>
-</tr>
-<tr>
-<td>7</td>
-<td>CNN with Phonetic Attention for Text-Independent Speaker Verification</td>
-<td>Tianyan Zhou, Yong Zhao, Jinyu Li, Yifan Gong, Jian Wu</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</li>
-<li>
-<p>2017 年<br>
-时间：2017年12月16日~20日<br>
-地点：日本 冲绳县<br>
-共收到 ? 篇投稿，最终接收 106 篇论文</p>
-<table>
-<thead>
-<tr>
-<th><div style="width:35px">序号</div></th>
-<th>最佳论文（提名）</th>
-<th>作者</th>
-<th><div style="width:120px">获奖情况</div></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Streaming Small-Footprint Keyword Spotting Using Sequence-to-Sequence Models</td>
-<td>Yanzhang He, Rohit Prabhavalkar, Kanishka Rao, Wei Li, Anton Bakhtin, Ian McGraw</td>
-<td>最佳论文</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Hierarchical Recurrent Neural Network for Story Segmentation Using Fusion of Lexical and Acoustic Features</td>
-<td>Emiru Tsunoo, Ondrej Klejch, Peter Bell, Steve Renals</td>
-<td></td>
-</tr>
-<tr>
-<td>3</td>
-<td>An Embedded Segmental K-Means Model for Unsupervised Segmentation and Clustering of Speech</td>
-<td>Herman Kamper, Karen Livescu, Sharon Goldwater</td>
-<td></td>
-</tr>
-<tr>
-<td>4</td>
-<td>Composite Embedding Systems for Zerospeech2017 Track1</td>
-<td>Hayato Shibata, Taku Kato, Takahiro Shinozaki, Shinji Watanabe</td>
-<td></td>
-</tr>
-<tr>
-<td>5</td>
-<td>Exploring Architectures, Data and Units for Streaming End-to-End Speech Recognition with RNN-Transducer</td>
-<td>Kanishka Rao, Hasim Sak, Rohit Prabhavalkar</td>
-<td></td>
-</tr>
-<tr>
-<td>6</td>
-<td>Exploring Neural Transducers for End-to-End Speech Recognition</td>
-<td>Eric Battenberg, Jitong Chen, Rewon Child, Adam Coates, Yashesh Gaur, Yi Li, Hairong Liu, Sanjeev Satheesh, Anuroop Sriram, Zhenyao Zhu</td>
-<td></td>
-</tr>
-<tr>
-<td>7</td>
-<td>Unsupervised Adaptation with Domain Separation Networks for Robust Speech Recognition</td>
-<td>Zhong Meng, Zhuo Chen, Vadim Mazalov, Jinyu Li, Yifan Gong</td>
-<td></td>
-</tr>
-<tr>
-<td>8</td>
-<td>Language Independent End-to-End Architecture for Joint Language Identification and Speech Recognition</td>
-<td>Shinji Watanabe, Takaaki Hori, John Hershey</td>
-<td></td>
-</tr>
-<tr>
-<td>9</td>
-<td>Multi-Level Language Modeling and Decoding for Open Vocabulary End-to-End Speech Recognition</td>
-<td>Takaaki Hori, Shinji Watanabe, John Hershey</td>
-<td></td>
-</tr>
-<tr>
-<td>10</td>
-<td>Listening While Speaking: Speech Chain by Deep Learning</td>
-<td>Andros Tjandra, Sakriani Sakti, Satoshi Nakamura</td>
-<td>最佳学生论文</td>
-</tr>
-<tr>
-<td>11</td>
-<td>Unsupervised Domain Adaptation for Robust Speech Recognition Via Variational Autoencoder-Based Data Augmentation</td>
-<td>Wei-Ning Hsu, Yu Zhang, James Glass</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</li>
-<li>
-<p>2015 年</p>
-<p>时间：2015年12月13日~17日<br>
-地点：美国 斯科茨代尔<br>
-共收到 224 篇投稿，最终接收 107 篇论文</p>
-<table>
-<thead>
-<tr>
-<th><div style="width:35px">序号</div></th>
-<th>最佳论文（提名）</th>
-<th>作者</th>
-<th><div style="width:120px">获奖情况</div></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Hybrid DNN-Latent Structured SVM Acoustic models for Continuous Speech Recognition</td>
-<td>Suman Ravuri</td>
-<td>最佳论文</td>
-</tr>
-<tr>
-<td>2</td>
-<td></td>
-<td></td>
-<td>最佳学生论文</td>
-</tr>
-<tr>
-<td>3</td>
-<td>EESEN: End-to-end speech recognition using deep RNN models and WFST-based decoding</td>
-<td>Yajie Miao, Mohammad Gowayyed, Florian Metze</td>
-<td></td>
-</tr>
-<tr>
-<td>4</td>
-<td>Policy Committee for Adaptation in Multi-Domain Spoken Dialogue Systems</td>
-<td>M. Gašić, N. Mrkšić, Pei-hao Su, David Vandyke, Tsung-Hsien Wen, Steve Young</td>
-<td></td>
-</tr>
-<tr>
-<td>5</td>
-<td>(待补充)</td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</li>
-<li>
-<p>2013 年</p>
-<p>时间：2013年12月8日~13日<br>
-地点：捷克 奥洛穆茨</p>
-<table>
-<thead>
-<tr>
-<th><div style="width:35px">序号</div></th>
-<th>最佳论文（提名）</th>
-<th>作者</th>
-<th><div style="width:120px">获奖情况</div></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Unsupervised Induction and Filling of Semantic Slots for Spoken Dialogue Systems using Frame-Semantic Parsing</td>
-<td>Yun-Nung Chen, William Yang Wang, Alexander I. Rudnicky</td>
-<td>最佳学生论文</td>
-</tr>
-<tr>
-<td>2</td>
-<td>A Hierarchical System for Word Discovery Exploiting Dtw-Based Initialization</td>
-<td>Oliver Walter, Timo Korthals, Reinhold Haeb-Umbach, Bhiksha Raj</td>
-<td>最佳学生论文</td>
-</tr>
-<tr>
-<td>3</td>
-<td>The Tao of ATWV: Probing the Mysteries of Keyword Search Performance</td>
-<td>Steven Wegmann, Arlo Faria, Adam Janin, Korbinian Riedhammer, Nelson Morgan</td>
-<td>最佳论文</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Convolutional Neural Network Based Triangular CRF for Joint Intent Detection and Slot Filling</td>
-<td>Puyang Xu, Ruhi Sarikaya</td>
-<td>最佳论文</td>
-</tr>
-<tr>
-<td>5</td>
-<td>(待补充)</td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</li>
-<li>
-<p>2011 年</p>
-<p>时间：2011年12月11日~15日<br>
-地点：美国 夏威夷岛</p>
-</li>
-<li>
-<p>2009 年</p>
-<p>时间：2009年12月13日~17日<br>
-地点：意大利 梅拉诺</p>
-</li>
-<li>
-<p>2007 年</p>
-<p>时间：2007年12月9日~13日<br>
-地点：日本 京都</p>
-</li>
-</ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[InterSpeech历年最佳论文]]></title>
-        <id>https://emrys365.github.io/post/interspeech-li-nian-zui-jia-lun-wen</id>
-        <link href="https://emrys365.github.io/post/interspeech-li-nian-zui-jia-lun-wen">
-        </link>
-        <updated>2019-12-25T08:15:11.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="interspeech">InterSpeech</h1>
+  gtag('config', 'UA-155032470-1');
+</script>
+
+
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://emrys365.github.io/">
+  <img class="avatar" src="https://emrys365.github.io//images/avatar.png?v=1603987150460" alt="">
+  </a>
+  <h1 class="site-title">
+    Speech 101
+  </h1>
+  <p class="site-description">
+    记录、学习、分享语音相关知识
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Emrys365" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              InterSpeech历年最佳论文
+            </h2>
+            <div class="post-info">
+              <span>
+                2019-12-25
+              </span>
+              <span>
+                19 min read
+              </span>
+              
+                <a href="https://emrys365.github.io/tag/EJoWkpT7N" class="post-tag">
+                  # InterSpeech
+                </a>
+              
+                <a href="https://emrys365.github.io/tag/Cye6SEe-V3" class="post-tag">
+                  # ISCA
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://emrys365.github.io//post-images/interspeech-li-nian-zui-jia-lun-wen.jpg" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h1 id="interspeech">InterSpeech</h1>
 <p>（主要数据来源：每年会议的 AbstractBook.pdf）</p>
 <ul>
 <li>2020 年<br>
@@ -1339,6 +1112,95 @@ table th:first-of-type {  #first表示表格第一列
 </tr>
 </tbody>
 </table>
-]]></content>
-    </entry>
-</feed>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li><a href="#interspeech">InterSpeech</a></li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '28cd080097329ea0c788',
+    clientSecret: '8d7414a55b033e9be3c55ec36b22ad9a21300d64',
+    repo: 'Emrys365.github.io',
+    owner: 'Emrys365',
+    admin: ['Emrys365'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
+  <a class="rss" href="https://emrys365.github.io//atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
+
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>
