@@ -2,14 +2,165 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://emrys365.github.io/</id>
     <title>Speech 101</title>
-    <updated>2020-10-29T15:59:14.714Z</updated>
+    <updated>2022-06-06T13:46:05.420Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://emrys365.github.io/"/>
     <link rel="self" href="https://emrys365.github.io/atom.xml"/>
     <subtitle>记录、学习、分享语音相关知识</subtitle>
     <logo>https://emrys365.github.io/images/avatar.png</logo>
     <icon>https://emrys365.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, Speech 101</rights>
+    <rights>All rights reserved 2022, Speech 101</rights>
+    <entry>
+        <title type="html"><![CDATA[Debug 故事 01]]></title>
+        <id>https://emrys365.github.io/post/debug-gu-shi-01</id>
+        <link href="https://emrys365.github.io/post/debug-gu-shi-01">
+        </link>
+        <updated>2022-06-06T09:25:15.000Z</updated>
+        <summary type="html"><![CDATA[<blockquote>
+<p>警告：为方便阅读，本文部分代码实为伪代码，请勿当真。</p>
+</blockquote>
+<h2 id="背景">背景</h2>
+<p>最近我用 espnet 跑了一个比较慢的基线实验，采用 SNR loss 进行训练，虽然用上了单机 4 卡（2080ti）依然需要一周左右的时间才能完成。在基线的基础上，我希望调整一下模型训练过程，以便进行后续拓展：</p>
+<ul>
+<li>在计算 SNR loss 前对当前 batch 的标签进行判断，如果存在<strong>全零项</strong>，就用 L1 loss 函数来代替，因为 SNR loss 在标签为全零时无法计算。</li>
+</ul>
+<p>于是，我对原先的 loss 计算代码</p>
+<pre><code class="language-python">loss, stats = 0.0, {}
+...
+loss_ = snr_loss(speech_ref, speech_pre)
+stats_ = {&quot;snr_loss&quot;: loss_}
+loss += loss_
+stats.update(stats_)
+</code></pre>
+<p>做了如下修改：</p>
+<pre><code class="language-python">loss, stats = 0.0, {}
+...
+has_all_zero = torch.cat(speech_ref, dim=0).sum(dim=-1).eq(0).any()
+if has_all_zero:
+    loss_ = l1_loss(speech_ref, speech_pre)
+    stats_ = {&quot;l1_loss&quot;: loss_}
+else:
+    loss_ = snr_loss(speech_ref, speech_pre)
+    stats_ = {&quot;snr_loss&quot;: loss_}
+loss += loss_
+stats.update(stats_)
+</code></pre>
+<h2 id="bug">Bug?</h2>
+<p>上面的修改看似应该没有任何问题，于是我开始了模型训练。然而在检查模型的训练日志时，我发现了一个令人震惊的事实，那就是日志显示模型的 l1_loss 始终都是负的！这在理论上是绝不可能的，因为 L1 loss 是绝对值。</p>
+]]></summary>
+        <content type="html"><![CDATA[<blockquote>
+<p>警告：为方便阅读，本文部分代码实为伪代码，请勿当真。</p>
+</blockquote>
+<h2 id="背景">背景</h2>
+<p>最近我用 espnet 跑了一个比较慢的基线实验，采用 SNR loss 进行训练，虽然用上了单机 4 卡（2080ti）依然需要一周左右的时间才能完成。在基线的基础上，我希望调整一下模型训练过程，以便进行后续拓展：</p>
+<ul>
+<li>在计算 SNR loss 前对当前 batch 的标签进行判断，如果存在<strong>全零项</strong>，就用 L1 loss 函数来代替，因为 SNR loss 在标签为全零时无法计算。</li>
+</ul>
+<p>于是，我对原先的 loss 计算代码</p>
+<pre><code class="language-python">loss, stats = 0.0, {}
+...
+loss_ = snr_loss(speech_ref, speech_pre)
+stats_ = {&quot;snr_loss&quot;: loss_}
+loss += loss_
+stats.update(stats_)
+</code></pre>
+<p>做了如下修改：</p>
+<pre><code class="language-python">loss, stats = 0.0, {}
+...
+has_all_zero = torch.cat(speech_ref, dim=0).sum(dim=-1).eq(0).any()
+if has_all_zero:
+    loss_ = l1_loss(speech_ref, speech_pre)
+    stats_ = {&quot;l1_loss&quot;: loss_}
+else:
+    loss_ = snr_loss(speech_ref, speech_pre)
+    stats_ = {&quot;snr_loss&quot;: loss_}
+loss += loss_
+stats.update(stats_)
+</code></pre>
+<h2 id="bug">Bug?</h2>
+<p>上面的修改看似应该没有任何问题，于是我开始了模型训练。然而在检查模型的训练日志时，我发现了一个令人震惊的事实，那就是日志显示模型的 l1_loss 始终都是负的！这在理论上是绝不可能的，因为 L1 loss 是绝对值。</p>
+<!-- more -->
+<h2 id="debug">Debug</h2>
+<p>考虑到日志显示的结果是对若干步训练结果的平均（1 个 iteration 大概包括 100 个 batch），于是我首先在上面修改的代码中插入了 print 语句来检验每个具体 batch 计算出的 L1 loss。结果也如预期般的正常，每一个打印出来的 L1 loss 值都是正的。这就与日志中的结果相矛盾了。</p>
+<figure data-type="image" tabindex="1"><img src="https://emrys365.github.io//post-images/1654517186332.jpg" alt="无端联想" loading="lazy"></figure>
+<p>此时我心中有一个巨大的疑惑：后续的代码中难道有任何操作会修改 stats 中的 loss 值吗？</p>
+<p>乍一看似乎找不到这种操作，我只好从写日志的函数着手开始分析。因为最终写到训练日志中的 l1_loss 是不正常的，如果写日志的函数的输入输出值对应不上的话，很有可能就是它的问题！</p>
+<figure data-type="image" tabindex="2"><img src="https://emrys365.github.io//post-images/1654518893713.png" alt="果然" loading="lazy"></figure>
+<p>经过一番跳转可以找到，espnet 中模型训练的日志是通过类别 Reporter 的对象来输出的，它的 log_message 方法就是用来生成写到文件的日志信息。于是我在其中插入了一些 print 语句来探查输入的原始数据的值，得到的是如下的一串数字的列表：</p>
+<pre><code class="language-python">l1_loss=[WeightedAverage(value=nan, weight=0), WeightedAverage(value=-0.835070
+    788860321，weight=8), WeightedAverage(value=0.017597751691937447, weight=8),
+    WeightedAverage(value=nan, weight=0), WeightedAverage(value=nan, weight=0),
+    WeightedAverage(value=nan, weight=0), WeightedAverage(value=nan, weight=0),
+    WeightedAverage(value=-1.290090799331665, weight=8), WeightedAverage(value=
+    nan, weight=0), WeightedAverage(value=nan, weight=0), WeightedAverage(value=
+    nan, weight=0), WeightedAverage(value=nan, weight=0), WeightedAverage(value=
+    nan, weight=0), WeightedAverage(value=nan, weight=0), WeightedAverage(value=
+    nan, weight=0), WeightedAverage(value=nan, weight=0), WeightedAverage(value=
+    nan, weight=0), WeightedAverage(value=nan, weight=0), WeightedAverage(value=
+    nan, weight=0), WeightedAverage(value=-0.5981062650680542, weight=8),
+    ...
+    WeightedAverage(value=0.014390362426638603, weight=8)]
+</code></pre>
+<blockquote>
+<p>列表里的每个 WeightedAverage 对象的 value 就对应着一个 batch 内算出的 loss 平均值，weight 则代表该 batch 的 loss 权重（实际上等于 batch_size）。</p>
+<p>最终日志输出的 l1_loss 标量值就是这些列表元素按各自权重的加权和，如果遇到 loss 值是 nan 则跳过。</p>
+<p>列表里的那些权重为 0 的 nan 值实际上是代码添加的，目的是将 stats 字典的所有 key 对应的 value（都是列表）长度补齐到等长，即保证每个 batch 都有与之对应的一项数值。</p>
+</blockquote>
+<p>从上面的例子可以看出，日志系统在拿到“原始数据”的时候看到的已经是有正有负的 L1 loss 值了，因此 bug 应该在这一步之前就已经出现。</p>
+<figure data-type="image" tabindex="3"><img src="https://emrys365.github.io//post-images/1654520310932.gif" alt="What?" loading="lazy"></figure>
+<p>那么，究竟是哪一步操作导致 stats 中的 l1_loss 如此奇怪呢？</p>
+<p>（其实原因早已经在前文中提到了……在继续往下翻之前，你不妨大胆猜想一下）</p>
+<figure data-type="image" tabindex="4"><img src="https://emrys365.github.io//post-images/1654521156131.png" alt="优雅的分割线" loading="lazy"></figure>
+<p>检查完了 loss 计算和写日志的代码，夹在它们中间的就只剩一些零碎的操作了，比如反向传播、优化器迭代、学习率调整等等。这些显然和 stats 的修改没有关系。</p>
+<p>难道遗漏了什么？为了不错过任何一点蛛丝马迹，我打算从 loss 计算结束开始，逐行进行调查。很快啊，一个以 stats 作为输入和输出的函数引起了我的注意。</p>
+<pre><code class="language-python">if ngpu &gt; 1 or distributed:
+    # Apply weighted averaging for loss and stats
+    loss = (loss * weight.type(loss.dtype)).sum()
+
+    # if distributed, this method can also apply all_reduce()
+    stats, weight = recursive_average(stats, weight, distributed)
+
+    # Now weight is summation over all workers
+    loss /= weight
+</code></pre>
+<p>这个 <code>recursive_average</code> 函数的特别之处在于，它的最后一个参数 <code>distributed</code> 意味着它和多机/多卡的运行环境有着紧密关系。</p>
+<p>进一步跳转到它的定义</p>
+<pre><code class="language-python">def recursive_average(obj, weight: torch.Tensor, distributed: bool = False):
+    obj = recursive_sum(obj, weight, distributed)
+    weight = weight.sum()
+    if distributed:
+        torch.distributed.all_reduce(weight, op=ReduceOp.SUM)
+    # Normalize weight to be sum-to-1
+    obj = recursive_divide(obj, weight)
+    return obj, weight
+</code></pre>
+<p>就可以看到它的功能是对 stats 中所有的 value 列表的每一个元素都进行<strong>某种</strong>平均。可是对一个标量元素取平均有什么意义？</p>
+<figure data-type="image" tabindex="5"><img src="https://emrys365.github.io//post-images/1654521809269.jpeg" alt="==" loading="lazy"></figure>
+<p>这个函数针对的场景如果是多机/多卡的话……</p>
+<p>看着 <code>recursive_average</code>, <code>recursive_sum</code>, <code>recursive_divide</code> 都出现的 <code>torch.distributed.all_reduce</code> 函数，我突然意识到，这些操作其实是对不同 GPU 上的对应数据（loss 值）进行聚合，那么平均就具有意义了。</p>
+<p>同时，看到 all_reduce 这个熟悉的名词，我不禁回想起三年前《并行计算与并行算法》这门课上的学到的一些概念……我开始有了一些想法。</p>
+<p>为了验证这个想法，我首先把实验设置换成了单卡，重新开始一次训练。几分钟后，我打开日志文件瞧了瞧，果然所有的 l1_loss 都恢复成了预期的正值。</p>
+<figure data-type="image" tabindex="6"><img src="https://emrys365.github.io//post-images/1654518893713.png" alt="果然" loading="lazy"></figure>
+<p>有了实验的验证，我开始按照新的想法修改起最初的代码：</p>
+<pre><code class="language-python">loss, stats = 0.0, {}
+...
+has_all_zero = torch.cat(speech_ref, dim=0).sum(dim=-1).eq(0).any()
+if has_all_zero:
+    loss_l1 = l1_loss(speech_ref, speech_pre)
+    loss_snr = loss_l1.new_zeros(())
+    stats_ = {&quot;l1_loss&quot;: loss_l1, &quot;snr_loss&quot;: loss_snr}
+else:
+    loss_snr = snr_loss(speech_ref, speech_pre)
+    loss_l1 = loss_snr.new_zeros(())
+    stats_ = {&quot;l1_loss&quot;: loss_l1, &quot;snr_loss&quot;: loss_snr}
+loss += loss_snr + loss_l1
+stats.update(stats_)
+</code></pre>
+<p>再将实验设置改回 4 卡，重新进行训练。随着第一条 loss 日志的出现，我打消了心中的疑虑，同时也暗暗庆幸我当初决定采用 L1 loss 作为备选，而不是类似 SNR 的没有数值边界的 loss，不然这个 bug 恐怕要以更加诡异隐秘的形式出现了。</p>
+<h2 id="揭开面纱">揭开面纱</h2>
+<p>相信熟悉并行编程的读者此时已经猜到了这个 bug 的成因。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[提交 arXiv 文章的（LaTeX）预处理技巧]]></title>
         <id>https://emrys365.github.io/post/ti-jiao-arxiv-wen-zhang-de-latexyu-chu-li-ji-qiao</id>
@@ -64,6 +215,53 @@ echo -e &quot;     command to generate the archive file:\n&quot;
 echo -e &quot;  zip -r to_arxiv.zip ./{INTERSPEECH2020.sty,acronyms.tex,figs,figs/*,main.bbl,main.tex}
 echo -e &quot;\n#########################################################&quot;
 </code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ICASSP 历年最佳论文]]></title>
+        <id>https://emrys365.github.io/post/icassp-li-nian-zui-jia-lun-wen</id>
+        <link href="https://emrys365.github.io/post/icassp-li-nian-zui-jia-lun-wen">
+        </link>
+        <updated>2020-05-05T16:09:00.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="icassp">ICASSP</h1>
+<ul>
+<li>
+<p>2020 年<br>
+时间：2020年5月4日~8日<br>
+地点：西班牙 巴塞罗那（虚拟会议）<br>
+共收到  篇投稿，最终接收 2258 篇论文</p>
+<table>
+<thead>
+<tr>
+<th><div style="width:35px">序号</div></th>
+<th>最佳论文（提名）</th>
+<th>作者</th>
+<th><div style="width:120px">获奖情况</div></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>The Empirical Duality Gap of Constrained Statistical Learning</td>
+<td>Luiz F. O. Chamon, Santiago Paternain, Miguel Calvo-Fullana, Alejandro Ribeiro</td>
+<td>最佳学生论文</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Approximate Bayesian Computation with the Sliced-Wasserstein Distance</td>
+<td>Kimia Nadjahi, Valentin De Bortoli, Alain Durmus, Roland Badeau, Umut Simsekli</td>
+<td>最佳学生论文</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Better safe than sorry: risk-aware nonlinear Bayesian estimation</td>
+<td>Dionysios Kalogerias, Luiz Chamon, George Pappas, Alejandro Ribeiro</td>
+<td>最佳论文</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
 ]]></content>
     </entry>
     <entry>

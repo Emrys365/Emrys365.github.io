@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>提交 arXiv 文章的（LaTeX）预处理技巧 | Speech 101</title>
+<title>ICASSP 历年最佳论文 | Speech 101</title>
 <meta name="description" content="记录、学习、分享语音相关知识" />
 <link rel="shortcut icon" href="https://emrys365.github.io//favicon.ico?v=1654523139343">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -86,76 +86,66 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              提交 arXiv 文章的（LaTeX）预处理技巧
+              ICASSP 历年最佳论文
             </h2>
             <div class="post-info">
               <span>
-                2020-10-27
+                2020-05-06
               </span>
               <span>
-                2 min read
+                1 min read
               </span>
-              
-                <a href="https://emrys365.github.io/tag/yGSS2rN9O" class="post-tag">
-                  # LaTeX
-                </a>
               
             </div>
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>提交基于 tex 的文章时，可使用下列 shell 脚本进行处理，快速生成需要提交的文件：</p>
-<blockquote>
-<p>环境依赖：</p>
+                <h1 id="icassp">ICASSP</h1>
 <ul>
-<li>latexpand</li>
-<li>pdflatex</li>
-<li>bibtex</li>
+<li>
+<p>2020 年<br>
+时间：2020年5月4日~8日<br>
+地点：西班牙 巴塞罗那（虚拟会议）<br>
+共收到  篇投稿，最终接收 2258 篇论文</p>
+<table>
+<thead>
+<tr>
+<th><div style="width:35px">序号</div></th>
+<th>最佳论文（提名）</th>
+<th>作者</th>
+<th><div style="width:120px">获奖情况</div></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>The Empirical Duality Gap of Constrained Statistical Learning</td>
+<td>Luiz F. O. Chamon, Santiago Paternain, Miguel Calvo-Fullana, Alejandro Ribeiro</td>
+<td>最佳学生论文</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Approximate Bayesian Computation with the Sliced-Wasserstein Distance</td>
+<td>Kimia Nadjahi, Valentin De Bortoli, Alain Durmus, Roland Badeau, Umut Simsekli</td>
+<td>最佳学生论文</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Better safe than sorry: risk-aware nonlinear Bayesian estimation</td>
+<td>Dionysios Kalogerias, Luiz Chamon, George Pappas, Alejandro Ribeiro</td>
+<td>最佳论文</td>
+</tr>
+</tbody>
+</table>
+</li>
 </ul>
-</blockquote>
-<pre><code class="language-shell">#!/bin/bash
-
-PS01=&quot;\033[01;35m\$\033[00m&quot;
-
-echo -e &quot;\n${PS01} mv \033[4mmain.tex\033[0m \033[4mmain.tex.bak\033[0m&quot;
-mv main.tex main.tex.bak
-latexpand --empty-comments main.tex.bak &gt; main.tex
-if [[ $OSTYPE == darwin* ]]; then
-    sed -i '' -e '/^\s*%/d' main.tex
-else
-    sed -i -e '/^\s*%/d' main.tex
-fi
-
-echo -e &quot;\n${PS01} pdflatex \033[4mmain.tex\033[0m&quot;
-pdflatex main.tex
-echo -e &quot;\n${PS01} bibtex main&quot;
-if [ -f &quot;main.bbl&quot; ]; then
-    rm main.bbl
-fi
-bibtex main
-echo -e &quot;\n${PS01} pdflatex \033[4mmain.tex\033[0m&quot;
-pdflatex main.tex
-
-echo -e &quot;\n${PS01} rm \033[4mmain{.aux,.log,.out}\033[0m&quot;
-for suffix in .aux .blg .log .out; do
-    if [ -f &quot;main${suffix}&quot; ]; then
-        rm main${suffix}
-    fi
-done
-echo -e &quot;#########################################################&quot;
-echo -e &quot;\n(1) Please \033[33mcheck\033[0m and then \033[33mdelete\033[0m the generated \033[4mmain.pdf\033[0m.&quot;
-echo -e &quot;\n(2) You \033[33mmust include\033[0m the following files in the archive:&quot;
-echo -e &quot;  + main.tex\n  + main.bbl (or main.ind)\n  + referenced figures in main.tex\n  + (if applicable) other related tex files\n  + (optional) style file&quot;
-echo -e &quot;\n(3) After removing \033[4mmain.pdf\033[0m, you can run the following&quot;
-echo -e &quot;     command to generate the archive file:\n&quot;
-# Below is an example. Must include all involved .tex files, figure files, style files, and main.bbl.
-echo -e &quot;  zip -r to_arxiv.zip ./{INTERSPEECH2020.sty,acronyms.tex,figs,figs/*,main.bbl,main.tex}
-echo -e &quot;\n#########################################################&quot;
-</code></pre>
 
               </div>
               <div class="toc-container">
-                
+                <ul class="markdownIt-TOC">
+<li><a href="#icassp">ICASSP</a></li>
+</ul>
+
               </div>
             </div>
           </article>
@@ -164,9 +154,9 @@ echo -e &quot;\n#########################################################&quot;
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://emrys365.github.io/post/icassp-li-nian-zui-jia-lun-wen">
+            <a href="https://emrys365.github.io/post/asru-li-nian-zui-jia-lun-wen">
               <h3 class="post-title">
-                ICASSP 历年最佳论文
+                ASRU历年最佳论文
               </h3>
             </a>
           </div>

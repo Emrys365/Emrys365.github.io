@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Speech 101</title>
 <meta name="description" content="记录、学习、分享语音相关知识" />
-<link rel="shortcut icon" href="https://emrys365.github.io//favicon.ico?v=1603987150460">
+<link rel="shortcut icon" href="https://emrys365.github.io//favicon.ico?v=1654523139343">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://emrys365.github.io//styles/main.css">
@@ -29,7 +29,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://emrys365.github.io/">
-  <img class="avatar" src="https://emrys365.github.io//images/avatar.png?v=1603987150460" alt="">
+  <img class="avatar" src="https://emrys365.github.io//images/avatar.png?v=1654523139343" alt="">
   </a>
   <h1 class="site-title">
     Speech 101
@@ -87,6 +87,71 @@
         <div class="post-container">
   
     <article class="post">
+      <a href="https://emrys365.github.io/post/debug-gu-shi-01">
+        <h2 class="post-title">Debug 故事 01</h2>
+      </a>
+      <div class="post-info">
+        <span>
+          2022-06-06
+        </span>
+        <span>
+          7 min read
+        </span>
+        
+          <a href="https://emrys365.github.io/tag/VJeFbhl6l" class="post-tag">
+            # debug
+          </a>
+        
+          <a href="https://emrys365.github.io/tag/DezWZyODfQ" class="post-tag">
+            # pytorch
+          </a>
+        
+          <a href="https://emrys365.github.io/tag/rajKPAyuaM" class="post-tag">
+            # espnet
+          </a>
+        
+      </div>
+      
+        <a href="https://emrys365.github.io/post/debug-gu-shi-01" class="post-feature-image" style="background-image: url('https://emrys365.github.io//post-images/debug-gu-shi-01.jpeg')">
+        </a>
+      
+      <div class="post-abstract">
+        <blockquote>
+<p>警告：为方便阅读，本文部分代码实为伪代码，请勿当真。</p>
+</blockquote>
+<h2 id="背景">背景</h2>
+<p>最近我用 espnet 跑了一个比较慢的基线实验，采用 SNR loss 进行训练，虽然用上了单机 4 卡（2080ti）依然需要一周左右的时间才能完成。在基线的基础上，我希望调整一下模型训练过程，以便进行后续拓展：</p>
+<ul>
+<li>在计算 SNR loss 前对当前 batch 的标签进行判断，如果存在<strong>全零项</strong>，就用 L1 loss 函数来代替，因为 SNR loss 在标签为全零时无法计算。</li>
+</ul>
+<p>于是，我对原先的 loss 计算代码</p>
+<pre><code class="language-python">loss, stats = 0.0, {}
+...
+loss_ = snr_loss(speech_ref, speech_pre)
+stats_ = {&quot;snr_loss&quot;: loss_}
+loss += loss_
+stats.update(stats_)
+</code></pre>
+<p>做了如下修改：</p>
+<pre><code class="language-python">loss, stats = 0.0, {}
+...
+has_all_zero = torch.cat(speech_ref, dim=0).sum(dim=-1).eq(0).any()
+if has_all_zero:
+    loss_ = l1_loss(speech_ref, speech_pre)
+    stats_ = {&quot;l1_loss&quot;: loss_}
+else:
+    loss_ = snr_loss(speech_ref, speech_pre)
+    stats_ = {&quot;snr_loss&quot;: loss_}
+loss += loss_
+stats.update(stats_)
+</code></pre>
+<h2 id="bug">Bug?</h2>
+<p>上面的修改看似应该没有任何问题，于是我开始了模型训练。然而在检查模型的训练日志时，我发现了一个令人震惊的事实，那就是日志显示模型的 l1_loss 始终都是负的！这在理论上是绝不可能的，因为 L1 loss 是绝对值。</p>
+
+      </div>
+    </article>
+  
+    <article class="post">
       <a href="https://emrys365.github.io/post/ti-jiao-arxiv-wen-zhang-de-latexyu-chu-li-ji-qiao">
         <h2 class="post-title">提交 arXiv 文章的（LaTeX）预处理技巧</h2>
       </a>
@@ -101,6 +166,25 @@
           <a href="https://emrys365.github.io/tag/yGSS2rN9O" class="post-tag">
             # LaTeX
           </a>
+        
+      </div>
+      
+      <div class="post-abstract">
+        
+      </div>
+    </article>
+  
+    <article class="post">
+      <a href="https://emrys365.github.io/post/icassp-li-nian-zui-jia-lun-wen">
+        <h2 class="post-title">ICASSP 历年最佳论文</h2>
+      </a>
+      <div class="post-info">
+        <span>
+          2020-05-06
+        </span>
+        <span>
+          1 min read
+        </span>
         
       </div>
       
