@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://emrys365.github.io/</id>
     <title>Speech 101</title>
-    <updated>2022-09-26T06:33:44.620Z</updated>
+    <updated>2022-09-26T06:35:46.503Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://emrys365.github.io/"/>
     <link rel="self" href="https://emrys365.github.io/atom.xml"/>
@@ -676,38 +676,6 @@ s-65,47,-65,47z M834 80H400000v40H845z'/></svg></span></span></span><span class=
         <link href="https://emrys365.github.io/post/debug-gu-shi-01">
         </link>
         <updated>2022-06-06T09:25:15.000Z</updated>
-        <summary type="html"><![CDATA[<blockquote>
-<p>警告：为方便阅读，本文部分代码实为伪代码，请勿当真。</p>
-</blockquote>
-<h2 id="背景">背景</h2>
-<p>最近我用 espnet 跑了一个比较慢的基线实验，采用 SNR loss 进行训练，虽然用上了单机 4 卡（2080ti）依然需要一周左右的时间才能完成。在基线的基础上，我希望调整一下模型训练过程，以便进行后续拓展：</p>
-<ul>
-<li>在计算 SNR loss 前对当前 batch 的标签进行判断，如果存在<strong>全零项</strong>，就用 L1 loss 函数来代替，因为 SNR loss 在标签为全零时无法计算。</li>
-</ul>
-<p>于是，我对原先的 loss 计算代码</p>
-<pre><code class="language-python">loss, stats = 0.0, {}
-...
-loss_ = snr_loss(speech_ref, speech_pre)
-stats_ = {&quot;snr_loss&quot;: loss_}
-loss += loss_
-stats.update(stats_)
-</code></pre>
-<p>做了如下修改：</p>
-<pre><code class="language-python">loss, stats = 0.0, {}
-...
-has_all_zero = torch.cat(speech_ref, dim=0).sum(dim=-1).eq(0).any()
-if has_all_zero:
-    loss_ = l1_loss(speech_ref, speech_pre)
-    stats_ = {&quot;l1_loss&quot;: loss_}
-else:
-    loss_ = snr_loss(speech_ref, speech_pre)
-    stats_ = {&quot;snr_loss&quot;: loss_}
-loss += loss_
-stats.update(stats_)
-</code></pre>
-<h2 id="bug">Bug?</h2>
-<p>上面的修改看似应该没有任何问题，于是我开始了模型训练。然而在检查模型的训练日志时，我发现了一个令人震惊的事实，那就是日志显示模型的 l1_loss 始终都是负的！这在理论上是绝不可能的，因为 L1 loss 是绝对值。</p>
-]]></summary>
         <content type="html"><![CDATA[<blockquote>
 <p>警告：为方便阅读，本文部分代码实为伪代码，请勿当真。</p>
 </blockquote>
@@ -739,7 +707,6 @@ stats.update(stats_)
 </code></pre>
 <h2 id="bug">Bug?</h2>
 <p>上面的修改看似应该没有任何问题，于是我开始了模型训练。然而在检查模型的训练日志时，我发现了一个令人震惊的事实，那就是日志显示模型的 l1_loss 始终都是负的！这在理论上是绝不可能的，因为 L1 loss 是绝对值。</p>
-<!-- more -->
 <h2 id="debug">Debug</h2>
 <p>考虑到日志显示的结果是对若干步训练结果的平均（1 个 iteration 大概包括 100 个 batch），于是我首先在上面修改的代码中插入了 print 语句来检验每个具体 batch 计算出的 L1 loss。结果也如预期般的正常，每一个打印出来的 L1 loss 值都是正的。这就与日志中的结果相矛盾了。</p>
 <figure data-type="image" tabindex="1"><img src="https://emrys365.github.io//post-images/1654517186332.jpg" alt="无端联想" loading="lazy"></figure>
@@ -1425,169 +1392,6 @@ echo -e &quot;\n#########################################################&quot;
         <link href="https://emrys365.github.io/post/interspeech-li-nian-zui-jia-lun-wen">
         </link>
         <updated>2019-12-25T08:15:11.000Z</updated>
-        <summary type="html"><![CDATA[<h1 id="interspeech">InterSpeech</h1>
-<p>（主要数据来源：每年会议的 AbstractBook.pdf）</p>
-<ul>
-<li>2022 年<br>
-时间：2022 年 9 月 18 日 ~ 22 日<br>
-地点：韩国 仁川（线下/远程混合会议）<br>
-共收到 2490 篇投稿，其中 2140 篇被审稿，最终接收 1102 篇论文</li>
-</ul>
-<style>
-table th:first-of-type {  #first表示表格第一列
-    width: 100px; # 可使用%比例
-}
-</style>
-<table>
-<thead>
-<tr>
-<th><div style="width:35px">序号</div></th>
-<th>最佳学生论文（提名）</th>
-<th>作者</th>
-<th><div style="width:120px">获奖情况</div></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Trajectories Predicted by Optimal Speech Motor Control Using LSTM Networks</td>
-<td>Tsiky Rakotomalala, Pierre Baraduc, Pascal Perrier</td>
-<td></td>
-</tr>
-<tr>
-<td>2</td>
-<td>Transfer Learning Framework for Low-Resource Text-toSpeech Using a Large-Scale Unlabeled Speech Corpus</td>
-<td>Minchan Kim, Myeonghun Jeong, Byoung Jin ChoiA, Sunghwan Ahn, Joun Yeop Lee, Nam Soo Kim</td>
-<td></td>
-</tr>
-<tr>
-<td>3</td>
-<td>Pharyngealization in Amazigh: Acoustic and Articulatory Marking Over Time</td>
-<td>Tsiky Rakotomalala, Pierre Baraduc, Pascal Perrier</td>
-<td></td>
-</tr>
-<tr>
-<td>4</td>
-<td>Tree-constrained Pointer Generator with Graph Neural Network Encodings for Contextual Speech Recognition</td>
-<td>Guangzhi Sun, Chao Zhang, Phil Woodland</td>
-<td></td>
-</tr>
-<tr>
-<td>5</td>
-<td>Where's the Uh, Hesitation? the Interplay between Filled Pause Location, Speech Rate and Fundamental Frequency in Perception of Confidence</td>
-<td>Ambika Kirkland, Harm Lameris, Éva Székely, Joakim Gustafson</td>
-<td></td>
-</tr>
-<tr>
-<td>6</td>
-<td>Deep Residual Spiking Neural Network for Keyword Spotting in Low-Resource Settings</td>
-<td>Qu Yang, Qi Liu, Haizhou Li</td>
-<td></td>
-</tr>
-<tr>
-<td>7</td>
-<td>Attentive Feature Fusion for Robust Speaker Verification</td>
-<td>Bei Liu, Zhengyang Chen, Yanmin Qian</td>
-<td></td>
-</tr>
-<tr>
-<td>8</td>
-<td>Robust Self-Supervised Audio-Visual Speech Recognition</td>
-<td>Bowen Shi, Wei-Ning Hsu, Abdelrahman Mohamed</td>
-<td></td>
-</tr>
-<tr>
-<td>9</td>
-<td>Distance-Based Sound Separation</td>
-<td>Katharine Patterson, Kevin Wilson, Scott Wisdom, John R. Hershey</td>
-<td></td>
-</tr>
-<tr>
-<td>10</td>
-<td>Investigating Perception of Spoken Dialogue Acceptability through Surprisal</td>
-<td>Sarenne Carrol Wallbridge, Catherine Lai, Peter Bell</td>
-<td>最佳学生论文</td>
-</tr>
-<tr>
-<td>11</td>
-<td>Complex-Valued Time-Frequency Self-Attention for Speech Dereverberation</td>
-<td>Vinay Kothapally, John H.L. Hansen</td>
-<td></td>
-</tr>
-<tr>
-<td>12</td>
-<td>Learning Audio-Text Agreement for Open-vocabulary Keyword Spotting</td>
-<td>Hyeon-Kyeong Shin, Hyewon Han, Doyeon Kim, SooWhan Chung, Hong-Goo Kang</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>2021 年<br>
-时间：2021 年 8 月 30日 ~ 9 月 3 日<br>
-地点：捷克 布尔诺（远程会议）<br>
-共收到 2277 篇投稿，其中 1990 篇被审稿，最终接收 963 篇论文</li>
-</ul>
-<style>
-table th:first-of-type {  #first表示表格第一列
-    width: 100px; # 可使用%比例
-}
-</style>
-<table>
-<thead>
-<tr>
-<th><div style="width:35px">序号</div></th>
-<th>最佳学生论文（提名）</th>
-<th>作者</th>
-<th><div style="width:120px">获奖情况</div></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>StarGANv2-VC: A Diverse, Unsupervised, Non-parallel Framework for  NaturalSounding Voice Conversion</td>
-<td>Yinghao Li, Ali Zare, Nima Mesgarani</td>
-<td>最佳学生论文</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Stochastic Process Regression for  Cross-Cultural Speech Emotion Recognition</td>
-<td>Mani Kumar Tellamekala, Enrique Sanchez, Georgios Tzimiropoulos, Timo Giesbrecht, Michel Valstar</td>
-<td></td>
-</tr>
-<tr>
-<td>3</td>
-<td>Multilingual Transfer of Acoustic Word Embeddings Improves When Training on Languages Related to the Target Zero-Resource Language</td>
-<td>Christiaan Jacobs, Herman Kamper</td>
-<td></td>
-</tr>
-<tr>
-<td>4</td>
-<td>Effective Phase Encoding for End-to-end Speaker Verification</td>
-<td>Junyi Peng, Xiaoyang Qu, Rongzhi Gu, Jianzong Wang, Jing Xiao, Lukas Burget, Jan Černocký</td>
-<td></td>
-</tr>
-<tr>
-<td>5</td>
-<td>Dialogue Situation Recognition for  Everyday Conversation Using Multimodal Information</td>
-<td>Yuya Chiba, Ryuichiro Higashinaka</td>
-<td></td>
-</tr>
-<tr>
-<td>6</td>
-<td>Audio Retrieval with Natural Language Queries</td>
-<td>Andreea-Maria Oncescu, A. Sophia Koepke, João Henriques, Zeynep Akata, Samuel Albanie</td>
-<td></td>
-</tr>
-<tr>
-<td>7</td>
-<td>Optimally Encoding Inductive Biases into the Transformer Improves End-to-End Speech Translation</td>
-<td>Piyush Vyas, Anastasia Kuznetsova, Donald Williamson</td>
-<td>最佳学生论文</td>
-</tr>
-</tbody>
-</table>
-]]></summary>
         <content type="html"><![CDATA[<h1 id="interspeech">InterSpeech</h1>
 <p>（主要数据来源：每年会议的 AbstractBook.pdf）</p>
 <ul>
@@ -1748,17 +1552,56 @@ table th:first-of-type {  #first表示表格第一列
 <td>Piyush Vyas, Anastasia Kuznetsova, Donald Williamson</td>
 <td>最佳学生论文</td>
 </tr>
+<tr>
+<td>8</td>
+<td>WSRGlow: A Glow-based Waveform Generative Model for Audio Super-Resolution</td>
+<td>Kexun Zhang, Yi Ren, Changliang Xu, Zhou Zhao</td>
+<td></td>
+</tr>
+<tr>
+<td>9</td>
+<td>Acoustic Indicators of Speech Motor Coordination in Adults With and  Without Traumatic Brain Injury</td>
+<td>Tanya Talkar, Nancy Solomon, Douglas Brungart, Stefanie Kuchinsky, Megan Eitel, Sara Lippa, Tracey Brickell, Louis French, Rael Lange, Thomas Quatieri</td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>A Discriminative Entity-Aware Language Model for Virtual Assistants</td>
+<td>Mandana Saebi, Ernest Pusateri, Aaksha Meghawat, Christophe Van Gysel</td>
+<td></td>
+</tr>
+<tr>
+<td>11</td>
+<td>An Automatic, Simple Ultrasound Biofeedback Parameter for Distinguishing Accurate and Misarticulated Rhotic Syllables</td>
+<td>Sarah Li, Colin Annand, Sarah Dugan, Sarah Schwab, Kathryn Eary, Michael Swearengen, Sarah Stack, Suzanne Boyce, Michael Riley, T. Mast</td>
+<td></td>
+</tr>
+<tr>
+<td>12</td>
+<td>Active Speaker Detection as a Multi-Objective Optimization with Uncertainty-based Multimodal Fusion</td>
+<td>Baptiste Pouthier, Laurent Pilati, Leela Gudupudi, Charles Bouveyron, Frederic Precioso</td>
+<td></td>
+</tr>
+<tr>
+<td>13</td>
+<td>Exploring the Potential of  Lexical Paraphrases for  Mitigating Noise-Induced Comprehension Errors</td>
+<td>Anupama Chingacham, Vera Demberg, Dietrich Klakow</td>
+<td>最佳学生论文</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Automatic Analysis of  the  Emotional Content of Speech in Daylong Child-Centered Recordings from a Neonatal Intensive Care Unit</td>
+<td>Einari Vaaras, Sari Ahlqvist-Björkroth, Konstantinos Drossos, Okko Räsänen</td>
+<td></td>
+</tr>
+<tr>
+<td>15</td>
+<td>Leveraging Real-time MRI for Illuminating Linguistic Velum Action</td>
+<td>Miran Oh, Dani Byrd, Shrikanth Narayanan</td>
+<td></td>
+</tr>
 </tbody>
 </table>
-<!-- more -->
-<p>|  8  | WSRGlow: A Glow-based Waveform Generative Model for Audio Super-Resolution | Kexun Zhang, Yi Ren, Changliang Xu, Zhou Zhao |    |<br>
-|  9  | Acoustic Indicators of Speech Motor Coordination in Adults With and  Without Traumatic Brain Injury | Tanya Talkar, Nancy Solomon, Douglas Brungart, Stefanie Kuchinsky, Megan Eitel, Sara Lippa, Tracey Brickell, Louis French, Rael Lange, Thomas Quatieri |    |<br>
-|  10  | A Discriminative Entity-Aware Language Model for Virtual Assistants | Mandana Saebi, Ernest Pusateri, Aaksha Meghawat, Christophe Van Gysel |    |<br>
-|  11  | An Automatic, Simple Ultrasound Biofeedback Parameter for Distinguishing Accurate and Misarticulated Rhotic Syllables | Sarah Li, Colin Annand, Sarah Dugan, Sarah Schwab, Kathryn Eary, Michael Swearengen, Sarah Stack, Suzanne Boyce, Michael Riley, T. Mast |    |<br>
-|  12  | Active Speaker Detection as a Multi-Objective Optimization with Uncertainty-based Multimodal Fusion | Baptiste Pouthier, Laurent Pilati, Leela Gudupudi, Charles Bouveyron, Frederic Precioso |    |<br>
-|  13  | Exploring the Potential of  Lexical Paraphrases for  Mitigating Noise-Induced Comprehension Errors | Anupama Chingacham, Vera Demberg, Dietrich Klakow |  最佳学生论文  |<br>
-|  14  | Automatic Analysis of  the  Emotional Content of Speech in Daylong Child-Centered Recordings from a Neonatal Intensive Care Unit | Einari Vaaras, Sari Ahlqvist-Björkroth, Konstantinos Drossos, Okko Räsänen |    |<br>
-|  15  | Leveraging Real-time MRI for Illuminating Linguistic Velum Action | Miran Oh, Dani Byrd, Shrikanth Narayanan |    |</p>
 <ul>
 <li>2020 年<br>
 时间：2020 年 10 月 25 日 ~ 29 日<br>

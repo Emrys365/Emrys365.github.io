@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Debug 故事 01 | Speech 101</title>
 <meta name="description" content="记录、学习、分享语音相关知识" />
-<link rel="shortcut icon" href="https://emrys365.github.io//favicon.ico?v=1664174012881">
+<link rel="shortcut icon" href="https://emrys365.github.io//favicon.ico?v=1664174143610">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://emrys365.github.io//styles/main.css">
@@ -29,7 +29,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://emrys365.github.io/">
-  <img class="avatar" src="https://emrys365.github.io//images/avatar.png?v=1664174012881" alt="">
+  <img class="avatar" src="https://emrys365.github.io//images/avatar.png?v=1664174143610" alt="">
   </a>
   <h1 class="site-title">
     Speech 101
@@ -145,7 +145,6 @@ stats.update(stats_)
 </code></pre>
 <h2 id="bug">Bug?</h2>
 <p>上面的修改看似应该没有任何问题，于是我开始了模型训练。然而在检查模型的训练日志时，我发现了一个令人震惊的事实，那就是日志显示模型的 l1_loss 始终都是负的！这在理论上是绝不可能的，因为 L1 loss 是绝对值。</p>
-<!-- more -->
 <h2 id="debug">Debug</h2>
 <p>考虑到日志显示的结果是对若干步训练结果的平均（1 个 iteration 大概包括 100 个 batch），于是我首先在上面修改的代码中插入了 print 语句来检验每个具体 batch 计算出的 L1 loss。结果也如预期般的正常，每一个打印出来的 L1 loss 值都是正的。这就与日志中的结果相矛盾了。</p>
 <figure data-type="image" tabindex="1"><img src="https://emrys365.github.io//post-images/1654517186332.jpg" alt="无端联想" loading="lazy"></figure>
