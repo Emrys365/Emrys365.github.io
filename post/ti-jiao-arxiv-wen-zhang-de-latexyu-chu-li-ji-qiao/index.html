@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>提交 arXiv 文章的（LaTeX）预处理技巧 | Speech 101</title>
 <meta name="description" content="记录、学习、分享语音相关知识" />
-<link rel="shortcut icon" href="https://emrys365.github.io//favicon.ico?v=1656341286570">
+<link rel="shortcut icon" href="https://emrys365.github.io//favicon.ico?v=1664170897068">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://emrys365.github.io//styles/main.css">
@@ -29,7 +29,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://emrys365.github.io/">
-  <img class="avatar" src="https://emrys365.github.io//images/avatar.png?v=1656341286570" alt="">
+  <img class="avatar" src="https://emrys365.github.io//images/avatar.png?v=1664170897068" alt="">
   </a>
   <h1 class="site-title">
     Speech 101
@@ -151,7 +151,7 @@ echo -e &quot;  + main.tex\n  + main.bbl (or main.ind)\n  + referenced figures i
 echo -e &quot;\n(3) After removing \033[4mmain.pdf\033[0m, you can run the following&quot;
 echo -e &quot;     command to generate the archive file:\n&quot;
 # Below is an example. Must include all involved .tex files, figure files, style files, and main.bbl.
-echo -e &quot;  zip -r to_arxiv.zip ./{INTERSPEECH2020.sty,acronyms.tex,figs,figs/*,main.bbl,main.tex}
+echo -e &quot;  zip -r to_arxiv.zip ./{INTERSPEECH2020.sty,acronyms.tex,figs,figs/*,main.bbl,main.tex}&quot;
 echo -e &quot;\n#########################################################&quot;
 </code></pre>
 
