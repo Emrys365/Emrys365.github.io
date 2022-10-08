@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://emrys365.github.io/</id>
     <title>Speech 101</title>
-    <updated>2022-09-26T06:35:46.503Z</updated>
+    <updated>2022-10-08T04:09:36.843Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://emrys365.github.io/"/>
     <link rel="self" href="https://emrys365.github.io/atom.xml"/>
@@ -1425,7 +1425,7 @@ table th:first-of-type {  #first表示表格第一列
 <td>2</td>
 <td>Transfer Learning Framework for Low-Resource Text-toSpeech Using a Large-Scale Unlabeled Speech Corpus</td>
 <td>Minchan Kim, Myeonghun Jeong, Byoung Jin ChoiA, Sunghwan Ahn, Joun Yeop Lee, Nam Soo Kim</td>
-<td></td>
+<td>最佳学生论文</td>
 </tr>
 <tr>
 <td>3</td>
@@ -1437,7 +1437,7 @@ table th:first-of-type {  #first表示表格第一列
 <td>4</td>
 <td>Tree-constrained Pointer Generator with Graph Neural Network Encodings for Contextual Speech Recognition</td>
 <td>Guangzhi Sun, Chao Zhang, Phil Woodland</td>
-<td></td>
+<td>最佳学生论文</td>
 </tr>
 <tr>
 <td>5</td>
