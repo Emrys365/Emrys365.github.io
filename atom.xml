@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://emrys365.github.io/</id>
     <title>Speech 101</title>
-    <updated>2023-06-10T02:34:43.187Z</updated>
+    <updated>2023-06-13T02:15:41.713Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://emrys365.github.io/"/>
     <link rel="self" href="https://emrys365.github.io/atom.xml"/>
@@ -964,7 +964,7 @@ echo -e &quot;\n#########################################################&quot;
         <id>https://emrys365.github.io/post/icassp-li-nian-zui-jia-lun-wen</id>
         <link href="https://emrys365.github.io/post/icassp-li-nian-zui-jia-lun-wen">
         </link>
-        <updated>2020-05-03T16:09:00.000Z</updated>
+        <updated>2020-05-03T04:09:00.000Z</updated>
         <content type="html"><![CDATA[<h1 id="icassp">ICASSP</h1>
 <p>（主要数据来源：每年会议的 Technical Program Chairs’ Welcome）</p>
 <ul>
@@ -1060,6 +1060,54 @@ echo -e &quot;\n#########################################################&quot;
 <td>13</td>
 <td>Improving Massively Multilingual ASR With Auxiliary CTC Objectives</td>
 <td>William Chen, Brian Yan, Jiatong Shi, Yifan Peng, Soumi Maiti, Shinji Watanabe</td>
+<td>Top 3% Paper Recognition</td>
+</tr>
+<tr>
+<td>14</td>
+<td>On-the-fly Text Retrieval for End-to-End ASR Adapatation</td>
+<td>Bolaji Yusuf, Aditya Gourav, Ankur Gandhe, Ivan Bulyko</td>
+<td>Top 3% Paper Recognition</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Fast Online Source Steering Algorithm for Tracking Single Moving Source Using Online Independent Vector Analysis</td>
+<td>Taishi Nakashima, Rintaro Ikeshita, Nobutaka Ono, Shoko Araki, Tomohiro Nakatani</td>
+<td>Top 3% Paper Recognition</td>
+</tr>
+<tr>
+<td>16</td>
+<td>A Probabilistic Framework for Pruning Transformers via a Finite Admixture of Keys</td>
+<td>Tan M Nguyen, Tam Nguyen, Long Bui, Hai Do, Duy Khuong Nguyen, Dung D Le, Hung Tran-The, Nhat Ho, Stan J Osher, Richard G Baraniuk</td>
+<td>Top 3% Paper Recognition</td>
+</tr>
+<tr>
+<td>17</td>
+<td>GANStrument: Adversarial Instrument Sound Synthesis with Pitch-invariant Instance Conditioning</td>
+<td>Gaku Narita, Junichi Shimizu, Taketo Akama</td>
+<td>Top 3% Paper Recognition</td>
+</tr>
+<tr>
+<td>18</td>
+<td>An Edge Alignment-based Orientation Selection Method for Neutron Tomography</td>
+<td>Diyu Yang, Shimin Tang, Singanallur V. Venkatakrishnan, Mohammad S. N. Chowdhury, Yuxuan Zhang, Hassina Z. Bilheux, Gregery T. Buzzard, Charles A. Bouman</td>
+<td>Top 3% Paper Recognition</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Cross-utterance ASR Rescoring with Graph-based Label Propagation</td>
+<td>Srinath Tankasala, Long Chen, Andreas Stolcke, Anirudh Raju, Qianli Deng, Chander Chandak, Aparna Khare, Roland Maas, Venkatesh Ravichandran</td>
+<td>Top 3% Paper Recognition</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Efficient Speech Quality Assessment using Self-supervised Framewise Embeddings</td>
+<td>Karl El Hajal, Zihan Wu, Neil Scheidwasser-Clow, Gasser Elbanna, Milos Cernak</td>
+<td>Top 3% Paper Recognition</td>
+</tr>
+<tr>
+<td>21</td>
+<td>Puffin: Pitch-Synchronous Neural Waveform Generation for Fullband Speech on Modest Devices</td>
+<td>Oliver Watts, Lovisa Wihlborg, Cassia Valentini-Botinhao</td>
 <td>Top 3% Paper Recognition</td>
 </tr>
 </tbody>
