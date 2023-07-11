@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://emrys365.github.io/</id>
     <title>Speech 101</title>
-    <updated>2023-06-21T22:30:17.650Z</updated>
+    <updated>2023-07-11T06:13:47.621Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://emrys365.github.io/"/>
     <link rel="self" href="https://emrys365.github.io/atom.xml"/>
@@ -964,7 +964,7 @@ echo -e &quot;\n#########################################################&quot;
         <id>https://emrys365.github.io/post/icassp-li-nian-zui-jia-lun-wen</id>
         <link href="https://emrys365.github.io/post/icassp-li-nian-zui-jia-lun-wen">
         </link>
-        <updated>2020-05-02T16:09:00.000Z</updated>
+        <updated>2020-05-01T16:09:00.000Z</updated>
         <content type="html"><![CDATA[<h1 id="icassp">ICASSP</h1>
 <p>（主要数据来源：每年会议的 Technical Program Chairs’ Welcome）</p>
 <ul>
@@ -974,6 +974,7 @@ echo -e &quot;\n#########################################################&quot;
 共收到 6127 篇投稿，最终接收 2765 篇论文</li>
 </ul>
 <figure data-type="image" tabindex="1"><img src="https://emrys365.github.io//post-images/1686066034957.jpeg" alt="" loading="lazy"></figure>
+<p>参考：https://2023.ieeeicassp.org/top-3-percent-paper-recognitions/</p>
 <table>
 <thead>
 <tr>
